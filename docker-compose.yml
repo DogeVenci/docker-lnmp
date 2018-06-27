@@ -1,0 +1,29 @@
+web:
+    image: nginx:latest
+    ports:
+        - "8080:80"
+    privileged: true
+    volumes:
+        - ./www:/www
+        - ./site.conf:/etc/nginx/conf.d/site.conf
+    links:
+        - php
+        - mysqldb
+php:
+    build: ./phpbuild
+    privileged: true
+    volumes:
+        - ./www:/www
+mysqldb:
+    image: mysql:5
+    privileged: true
+    volumes:
+        - ./my.cnf:/etc/mysql/conf.d/my.cnf
+
+    ports:
+        - "3306:3306"
+    environment:
+        - MYSQL_HOST= 
+        - MYSQL_ROOT_PASSWORD=password
+
+
