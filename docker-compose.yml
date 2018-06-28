@@ -15,8 +15,8 @@ services:
             - ./key:/key
             - ./log:/var/log/nginx/
         depends_on:
-            - php
             - mysqldb
+            - php
 
     php:
         build: ./phpbuild
@@ -36,6 +36,7 @@ services:
         privileged: true
         volumes:
             - ./my.cnf:/etc/mysql/conf.d/my.cnf
+            - ./dbdata:/var/lib/mysql
         ports:
             - "3306:3306"
         networks:
